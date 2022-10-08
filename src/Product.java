@@ -8,7 +8,7 @@ public class Product {
 
     private String productName = "";
     private int productCode = -1;
-    private double unitCost = 0;
+    private double unitCost = 0.00;
     private boolean inCurrentProductLine = false;
 
     /**
