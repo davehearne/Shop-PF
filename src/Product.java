@@ -1,11 +1,10 @@
 /**
  * A scaled down version of a Product class
  *  
- * @author Siobhan Drohan, Mairead Meagher
- * @version 1.0
+ * @author Dave Hearne
+ * @version 2.2
  */
 public class Product {
-
     private String productName = "";
     private int productCode = -1;
     private double unitCost = 0.00;
