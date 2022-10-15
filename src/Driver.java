@@ -15,20 +15,8 @@ public class Driver{
         new Driver();
 	}
     public Driver() {
-        processOrder();
+        store = new Store();
         runMenu();
-    }
-    private void processOrder(){
-        //find out from the user how many products they would like to order
-        System.out.print("How many Products would you like to have in your Store?  ");
-        int numberProducts = input.nextInt();
-
-        store = new Store(numberProducts);
-
-        //ask the user for the details of the products and add them to the order
-        for (int i = 0; i < numberProducts; i++){
-            addProduct();
-        }
     }
 
     //gather the product data from the user and create a new product object.
@@ -72,13 +60,16 @@ public class Driver{
         System.out.print("""
                Shop Menu
                ---------
-                  1) List the Products
-                  2) List the current products
-                  3) Display average product unit cost
-                  4) Display cheapest product
-                  5) List products that are more expensive than a given price
+                  1) Add a product
+                  2) List the Products
+                  ----------------------------
+                  3) List the current products
+                  4) Display average product unit cost
+                  5) Display cheapest product
+                  6) List products that are more expensive than a given price
+                  ----------------------------
                   0) Exit
-               ==>> """);
+               ==>>  """);
         int option = input.nextInt();
         return option;
     }
@@ -92,11 +83,12 @@ public class Driver{
         while (option != 0){
 
             switch (option){
-                case 1 -> printProducts();
-                case 2 -> printCurrentProducts();
-                case 3 -> printAverageProductPrice();
-                case 4 -> printCheapestProduct();
-                case 5 -> printProductsAboveAPrice();
+                case 1 -> addProduct();
+                case 2 -> printProducts();
+                case 3 -> printCurrentProducts();
+                case 4 -> printAverageProductPrice();
+                case 5 -> printCheapestProduct();
+                case 6 -> printProductsAboveAPrice();
                 default -> System.out.println("Invalid option entered: " + option);
             }
 

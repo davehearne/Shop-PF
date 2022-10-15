@@ -1,33 +1,21 @@
+import java.util.ArrayList;
 public class Store {
-    private Product[] products;
-    //number of items in array
-    private int total = 0;
+    private ArrayList<Product> products;
 
-    public Store(int numberItems) {products = new Product[numberItems]; }
 
-    private boolean isFull() {return total == products.length;}
-
-    private boolean isEmpty(){ return total == 0;}
+    public Store() { products = new ArrayList<Product>(); }
 
     public boolean add(Product product){
-        if(isFull()){
-            return false;
-        }
-        else{
-            products[total] = product;
-            total++;
-            return true;
-        }
+        return products.add (product);
     }
 
     public String listProducts(){
-        if (isEmpty()){
-            return "No Products in the store";
-        }
-        else{
+        if (products.isEmpty()) {
+            return "No products in the store";
+        } else {
             String listOfProducts = "";
-            for(int i = 0; i < total; i++){
-                listOfProducts = listOfProducts + i + ": " + products[i] + "\n";
+            for (int i = 0; i < products.size(); i++) {
+                listOfProducts += i + ": " + products.get(i) + "\n";
             }
             return listOfProducts;
         }
@@ -40,11 +28,11 @@ public class Store {
      * @return The cheapest Product in the array or null, if no products are added yet.
      */
     public Product cheapestProduct() {
-        if (!isEmpty()) {
-            Product cheapestProduct = products[0];
-            for (int i = 1; i < total; i++) {
-                if (products[i].getUnitCost() < cheapestProduct.getUnitCost())
-                    cheapestProduct = products[i];
+        if (!products.isEmpty()) {
+            Product cheapestProduct = products.get(0);
+            for (Product product: products) {
+                if (product.getUnitCost() < cheapestProduct.getUnitCost())
+                    cheapestProduct = product;
             }
             return cheapestProduct;
         } else {
@@ -63,13 +51,13 @@ public class Store {
      * returned String indicates this.
      */
     public String listCurrentProducts() {
-        if (isEmpty()) {
+        if (products.isEmpty()) {
             return "No Products in the store";
         } else {
             String listOfProducts = "";
-            for (int i = 0; i < total; i++) {
-                if (products[i].isInCurrentProductLine())
-                    listOfProducts += i + ": " + products[i] + "\n";
+            for (int i = 0; i < products.size(); i++) {
+                if (products.get(i).isInCurrentProductLine())
+                    listOfProducts += i + ": " + products.get(i) + "\n";
             }
             if (listOfProducts.equals("")){
                 return "No Products are in our current product line";
@@ -87,12 +75,12 @@ public class Store {
      * @return The average product price, or -1 if no products exist.
      */
     public double averageProductPrice() {
-        if (!isEmpty()) {
+        if (!products.isEmpty()) {
             double totalPrice = 0;
-            for (int i = 0; i < total; i++) {
-                totalPrice += products[i].getUnitCost();
+            for (Product product: products) {
+                totalPrice += product.getUnitCost();
             }
-            return totalPrice / total;
+            return totalPrice / products.size();
         } else {
             return -1;
         }
@@ -112,13 +100,13 @@ public class Store {
      * in the array, the returned String contains "No products in store".
      */
     public String listProductsAboveAPrice(double price) {
-        if (isEmpty()) {
+        if (products.isEmpty()) {
             return "No Products in the store";
         } else {
             String str = "";
-            for (int i = 0; i < total; i++) {
-                if (products[i].getUnitCost() > price)
-                    str += i + ": " + products[i] + "\n";
+            for (int i = 0; i < products.size(); i++) {
+                if (products.get(i).getUnitCost() > price)
+                    str += i + ": " + products.get(i) + "\n";
             }
             if (str.equals("")) {
                 return "No products are more expensive than: " + price;

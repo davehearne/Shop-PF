@@ -2,7 +2,7 @@
  * A scaled down version of a Product class
  *  
  * @author Dave Hearne
- * @version 2.2
+ * @version 3.0
  */
 public class Product {
     private String productName = "";
