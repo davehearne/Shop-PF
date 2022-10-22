@@ -21,6 +21,7 @@ public class Product {
         this.productCode = productCode;
         this.unitCost = unitCost;
         this.inCurrentProductLine = inCurrentProductLine;
+
     }
          
     //-------
