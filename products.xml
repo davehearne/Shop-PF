@@ -1,0 +1,16 @@
+<object-stream>
+  <list>
+    <models.Product>
+      <productName>new product</productName>
+      <productCode>123</productCode>
+      <unitCost>12.99</unitCost>
+      <inCurrentProductLine>true</inCurrentProductLine>
+    </models.Product>
+    <models.Product>
+      <productName>another product</productName>
+      <productCode>453345</productCode>
+      <unitCost>345.99</unitCost>
+      <inCurrentProductLine>true</inCurrentProductLine>
+    </models.Product>
+  </list>
+</object-stream>

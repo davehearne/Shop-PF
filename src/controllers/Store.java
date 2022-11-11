@@ -1,3 +1,14 @@
+package controllers;
+
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.DomDriver;
+import models.Product;
+import utils.Utilities;
+
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 public class Store {
     private ArrayList<Product> products;
@@ -25,7 +36,7 @@ public class Store {
      * This method returns the cheapest product in the array.
      * If no products are stored in the array, null is returned.
      *
-     * @return The cheapest Product in the array or null, if no products are added yet.
+     * @return The cheapest models.Product in the array or null, if no products are added yet.
      */
     public Product cheapestProduct() {
         if (!products.isEmpty()) {
@@ -80,7 +91,7 @@ public class Store {
             for (Product product: products) {
                 totalPrice += product.getUnitCost();
             }
-            return totalPrice / products.size();
+            return Utilities.toTwoDecimalPlaces(totalPrice / products.size());
         } else {
             return -1;
         }
@@ -187,5 +198,27 @@ public class Store {
 
         //if the product was not found, return false, indicating that the update was not successful
         return false;
+    }
+    @SuppressWarnings("unchecked")
+    public void load() throws Exception {
+        //list of classes that you wish to include in the serialisation, separated by a comma
+        Class<?>[] classes = new Class[] { Product.class };
+
+        //setting up the xstream object with default security and the above classes
+        XStream xstream = new XStream(new DomDriver());
+        XStream.setupDefaultSecurity(xstream);
+        xstream.allowTypes(classes);
+
+        //doing the actual serialisation to an XML file
+        ObjectInputStream is = xstream.createObjectInputStream(new FileReader("products.xml"));
+        products = (ArrayList<Product>) is.readObject();
+        is.close();
+    }
+
+    public void save() throws Exception {
+        XStream xstream = new XStream(new DomDriver());
+        ObjectOutputStream out = xstream.createObjectOutputStream(new FileWriter("products.xml"));
+        out.writeObject(products);
+        out.close();
     }
 }

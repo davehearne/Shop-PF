@@ -1,8 +1,12 @@
+package models;
+
+import utils.Utilities;
+
 /**
  * A scaled down version of a Product class
  *  
  * @author Dave Hearne
- * @version 3.0
+ * @version 5.0
  */
 public class Product {
     private String productName = "";
@@ -17,7 +21,7 @@ public class Product {
      * @param unitCost Unit cost of the product
      */
     public Product(String productName, int productCode, double unitCost, boolean inCurrentProductLine) {
-        this.productName = productName;
+        this.productName = Utilities.truncateString(productName, 20);
         this.productCode = productCode;
         this.unitCost = unitCost;
         this.inCurrentProductLine = inCurrentProductLine;
@@ -28,7 +32,7 @@ public class Product {
     //getters
     //-------
     /**
-     * Returns the Product Name 
+     * Returns the Product Name
      */
     public String getProductName(){
         return productName;
@@ -42,7 +46,7 @@ public class Product {
     }
     
     /**
-     * Returns the Product Code 
+     * Returns the Product Code
      */
     public int getProductCode() {
 		return productCode;
@@ -59,19 +63,23 @@ public class Product {
     //setters
     //-------
     /**
-     * Updates the Product Code to the value passed as a parameter 
+     * Updates the Product Code to the value passed as a parameter
      * @param productCode The new Product Code
      */
 	public void setProductCode(int productCode) {
-		this.productCode = productCode;
+        if (Utilities.validRange(productCode, 1000, 9999)) {
+            this.productCode = productCode;
+        }
 	}
 
 	/**
-     * Updates the Product Name to the value passed as a parameter 
+     * Updates the Product Name to the value passed as a parameter
      * @param productName The new Product Name
      */
 	public void setProductName(String productName) {
-		this.productName = productName;
+        if (Utilities.validateStringLength(productName, 20)) {
+            this.productName = productName;
+        }
 	}
 
 	/**
@@ -91,7 +99,7 @@ public class Product {
 	}
 
     /**
-     * Builds a String representing a user friendly representation of the object state
+     * Builds a String representing a user-friendly representation of the object state
      * @return Details of the specific product
      */
     public String toString()

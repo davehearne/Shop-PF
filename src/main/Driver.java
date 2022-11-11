@@ -1,3 +1,10 @@
+package main;
+
+import controllers.Store;
+import models.Product;
+import utils.ScannerInput;
+import utils.Utilities;
+
 import java.util.Scanner;
 
 public class Driver{
@@ -34,10 +41,7 @@ public class Driver{
         //converted to either a True or a False (i.e. a boolean value).
         System.out.print("Is this product in your current line (y/n): ");
         char currentProduct = input.next().charAt(0);
-        boolean inCurrentProductLine = false;
-        if ((currentProduct == 'y') || (currentProduct == 'Y'))
-            inCurrentProductLine = true;
-
+        boolean inCurrentProductLine = Utilities.YNtoBoolean(currentProduct);
         boolean isAdded = store.add(new Product(productName, productCode, unitCost, inCurrentProductLine));
         if (isAdded){
             System.out.println("Product Added Successfully");
@@ -70,6 +74,8 @@ public class Driver{
                   7) Display cheapest product
                   8) List products that are more expensive than a given price
                   ----------------------------
+                  9) Save Products
+                  10) Load Products
                   0) Exit
                ==>>  """);
         int option = input.nextInt();
@@ -93,6 +99,8 @@ public class Driver{
                 case 6 -> printAverageProductPrice();
                 case 7 -> printCheapestProduct();
                 case 8 -> printProductsAboveAPrice();
+                case 9 -> saveProducts();
+                case 10 -> loadProducts();
                 default -> System.out.println("Invalid option entered: " + option);
             }
 
@@ -149,7 +157,7 @@ public class Driver{
         if(store.numberOfProducts() > 0){
             //only ask the user to choose the product to delete if products exist
             int indexToDelete = ScannerInput.readNextInt("Enter the index of the product to delete ==> ");
-            //pass the index of the product to Store for deleting and check for success.
+            //pass the index of the product to controllers.Store for deleting and check for success.
             Product productToDelete = store.deleteProduct(indexToDelete);
             if (productToDelete != null){
                 System.out.println("Delete Successful! Deleted product: " + productToDelete.getProductName());
@@ -173,11 +181,9 @@ public class Driver{
                 //Ask the user to type in either a Y or an N.  This is then
                 //converted to either a True or a False (i.e. a boolean value).
                 char currentProduct = ScannerInput.readNextChar("Is this product in your current line (y/n): ");
-                boolean inCurrentProductLine = false;
-                if ((currentProduct == 'y') || (currentProduct == 'Y'))
-                    inCurrentProductLine = true;
+                boolean inCurrentProductLine = Utilities.YNtoBoolean(currentProduct);
 
-                //pass the index of the product and the new product details to Store for updating and check for success.
+                //pass the index of the product and the new product details to controllers.Store for updating and check for success.
                 if (store.updateProduct(indexToUpdate, new Product(productName, productCode, unitCost, inCurrentProductLine))){
                     System.out.println("Update Successful");
                 }
@@ -190,7 +196,27 @@ public class Driver{
             }
         }
     }
+    /**
+     * save products to products.xml
+     */
+    private void saveProducts() {
+        try {
+            store.save();
+            System.out.println("Products saved!");
+        } catch (Exception e) {
+            System.err.println("Error writing to file: " + e);
+        }
+    }
 
-
-
+    /**
+     * load products from products.xml
+     */
+    private void loadProducts() {
+        try {
+            store.load();
+            System.out.println("Products successfully loaded!");
+        } catch (Exception e) {
+            System.err.println("Error reading from file: " + e);
+        }
+    }
 }
