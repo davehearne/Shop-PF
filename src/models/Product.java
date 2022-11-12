@@ -6,7 +6,7 @@ import utils.Utilities;
  * A scaled down version of a Product class
  *  
  * @author Dave Hearne
- * @version 5.0
+ * @version 6.0
  */
 public class Product {
     private String productName = "";
