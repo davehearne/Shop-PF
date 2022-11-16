@@ -67,7 +67,7 @@ public class Product {
      * @param productCode The new Product Code
      */
 	public void setProductCode(int productCode) {
-        if (Utilities.validRange(productCode, 1000, 9999)) {
+        if (Utilities.validRange(productCode, 999, 10000)) {
             this.productCode = productCode;
         }
 	}

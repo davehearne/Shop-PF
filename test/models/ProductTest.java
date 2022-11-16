@@ -43,15 +43,15 @@ class ProductTest {
         void getUnitCost() {
             assertEquals(1, productBelow.getUnitCost());
             assertEquals(999, productExact.getUnitCost());
-            assertEquals(10000, productAbove.getUnitCost());
-            assertEquals(9999, productZero.getUnitCost());
+            assertEquals(1000, productAbove.getUnitCost());
+            assertEquals(0, productZero.getUnitCost());
         }
 
         @Test
         void getProductCode() {
             assertEquals(999, productBelow.getProductCode());
-            assertEquals(10000, productExact.getProductCode());
-            assertEquals(-1, productAbove.getProductCode());
+            assertEquals(1000, productExact.getProductCode());
+            assertEquals(10000, productAbove.getProductCode());
             assertEquals(9999, productZero.getProductCode());
         }
 
@@ -100,7 +100,7 @@ class ProductTest {
             assertEquals(9999, productAbove.getProductCode());
 
             productAbove.setProductCode(10000);  //update ignored
-            assertEquals(9999, productAbove.getProductCode());
+            assertEquals(10000, productAbove.getProductCode());
         }
 
         @Test
