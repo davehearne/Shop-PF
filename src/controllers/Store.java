@@ -10,6 +10,7 @@ import java.io.FileWriter;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+
 public class Store {
     private ArrayList<Product> products;
 
@@ -182,17 +183,27 @@ public class Store {
      * @param updateDetails
      * @return
      */
-    public boolean updateProduct(int indexToUpdate, Product updateDetails) {
+    /**
+     * Update a models.Product in the ArrayList with the contents passed in the models.Product object parameter.
+     *
+     * @param indexToUpdate Index of the models.Product object in the ArrayList
+     * @param productName Name of the product
+     * @param productCode Code of the product
+     * @param unitCost Unit cost of the product
+     * @param inCurrentProductLine boolean indicating if the product is current or not
+     * @return The status of the update, True or False
+     */
+    public boolean updateProduct(int indexToUpdate, String productName, int productCode, double unitCost, boolean inCurrentProductLine) {
         //find the product object by the index number
         Product foundProduct = findProduct(indexToUpdate);
 
         //if the product exists, use the details passed in the updateDetails parameter to
         //update the found product in the ArrayList.
         if (foundProduct != null) {
-            foundProduct.setProductName(updateDetails.getProductName());
-            foundProduct.setProductCode(updateDetails.getProductCode());
-            foundProduct.setUnitCost(updateDetails.getUnitCost());
-            foundProduct.setInCurrentProductLine(updateDetails.isInCurrentProductLine());
+            foundProduct.setProductName(productName);
+            foundProduct.setProductCode(productCode);
+            foundProduct.setUnitCost(unitCost);
+            foundProduct.setInCurrentProductLine(inCurrentProductLine);
             return true;
         }
 
