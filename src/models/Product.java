@@ -1,6 +1,10 @@
 package models;
 
+import utils.LanguageUtility;
 import utils.Utilities;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A scaled down version of a Product class
@@ -13,6 +17,7 @@ public class Product {
     private int productCode = -1;
     private double unitCost = 0.00;
     private boolean inCurrentProductLine = false;
+    private Map<String,String> productDescriptions = new HashMap<>();
 
     /**
      * Constructor for objects of class Product
@@ -59,15 +64,24 @@ public class Product {
 		return inCurrentProductLine;
 	}
 
+    public Map<String, String> getProductDescriptions() {
+        return productDescriptions;
+    }
+
     //-------
     //setters
     //-------
+
+    public void setProductDescriptions(Map<String, String> productDescriptions) {
+        this.productDescriptions = productDescriptions;
+    }
+
     /**
      * Updates the Product Code to the value passed as a parameter
      * @param productCode The new Product Code
      */
 	public void setProductCode(int productCode) {
-        if (Utilities.validRange(productCode, 999, 10000)) {
+        if (Utilities.validRange(productCode, 99, 9999)) {
             this.productCode = productCode;
         }
 	}
@@ -105,9 +119,56 @@ public class Product {
     public String toString()
     {
         return "Product description: " + productName
-             + ", product code: " + productCode
-             + ", unit cost: " + unitCost
-             + ", currently in product line: " + inCurrentProductLine;
+                + ", product code: " + productCode
+                + ", unit cost: " + unitCost
+                + ", currently in product line: " + Utilities.booleanToYN(inCurrentProductLine);
+    }
+
+    public int numberOfDescriptions(){
+        return productDescriptions.size();
+    }
+    public String findDescription(String language) {
+        return productDescriptions.get(language);
+    }
+    public boolean isAlreadyAddedLanguage(String language) {
+        return (findDescription(language) != null);
+    }
+    public String deleteDescription(String language) {
+        return productDescriptions.remove(language);
+    }
+    public String listDescriptions() {
+        if (numberOfDescriptions() > 0){
+            String listToReturn = "";
+            for(String language : productDescriptions.keySet()){
+                listToReturn += language + ": " + productDescriptions.get(language) + ".\n";
+            }
+            return listToReturn;
+        }
+        return "No descriptions added yet";
+    }
+    public boolean updateDescription(String language, String updatedDescription) {
+        //if the language has been added to the map, use the details passed in the
+        //updateDescription parameter to update the description.
+        if (isAlreadyAddedLanguage(language)) {
+            productDescriptions.put(language, updatedDescription);
+            return true;
+        }
+
+        //if the language was not found, return false, indicating that the update was not successful.
+        return false;
+    }
+
+    public boolean addDescription(String language, String description){
+        if (isAlreadyAddedLanguage(language)) {
+            return false;
+        }
+        else{
+            if (LanguageUtility.isValidLanguage(language)) {
+                productDescriptions.put(language, description);
+                return true;
+            }
+        }
+        return false;
     }
 
 }

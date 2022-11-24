@@ -20,6 +20,16 @@ public class Utilities {
     }
 
     /**
+     * This method returns Y if the booleanToConvert value is true. Returns N otherwise.
+     *
+     * @param booleanToConvert The boolean value that will be used to determine Y/N
+     * @return Returns Y if the booleanToConvert value is true. Returns N otherwise.
+     */
+    public static char booleanToYN(boolean booleanToConvert){
+        return booleanToConvert ? 'Y' : 'N';
+    }
+
+    /**
      * Truncate String
      * @param stringToTruncate
      * @param length
