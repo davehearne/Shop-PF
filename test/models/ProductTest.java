@@ -4,7 +4,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import utils.Utilities;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,6 +30,7 @@ class ProductTest {
 
     @Nested
     class Getters {
+
         @Test
         void getProductName() {
             assertEquals("Television 42Inches", productBelow.getProductName());
@@ -89,6 +89,7 @@ class ProductTest {
 
         @Test
         void setProductCode() {
+            assertEquals(10000, productAbove.getProductCode());
 
             productAbove.setProductCode(999);  //update ignored
             assertEquals(999, productAbove.getProductCode());
@@ -100,7 +101,7 @@ class ProductTest {
             assertEquals(9999, productAbove.getProductCode());
 
             productAbove.setProductCode(10000);  //update ignored
-            assertEquals(10000, productAbove.getProductCode());
+            assertEquals(9999, productAbove.getProductCode());
         }
 
         @Test
@@ -122,6 +123,6 @@ class ProductTest {
         assertTrue(toStringContents.contains("Product description: " + productExact.getProductName()));
         assertTrue(toStringContents.contains("product code: " + productExact.getProductCode()));
         assertTrue(toStringContents.contains("unit cost: " + productExact.getUnitCost()));
-        assertTrue(toStringContents.contains(" currently in product line: true"));
+        assertTrue(toStringContents.contains(" currently in product line: Y"));
     }
 }

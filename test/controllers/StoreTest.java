@@ -71,7 +71,7 @@ class StoreTest {
 
 
         @Test
-        void updatingAProductThatExistsReturnsTrueAndUpdates(){
+        void updatingANoteThatExistsReturnsTrueAndUpdates(){
             //check product index 2 exists and check the contents
             assertEquals(productAbove, storeWithProducts.findProduct(2));
             assertEquals("Television 60 Inches", storeWithProducts.findProduct(2).getProductName());
@@ -128,4 +128,5 @@ class StoreTest {
             assertNull(storeWithProducts.findProduct(3));
         }
     }
+
 }
