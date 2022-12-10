@@ -84,6 +84,10 @@ public class Driver{
                 |   12) Display cheapest product                                 |
                 |   13) List products that are more expensive than a given price |
                 ------------------------------------------------------------------
+                | SEARCH AND SORT                                                |
+                |   15) Search By Name                                           |
+                |   16) Sort Alphabetically                                      |
+                ------------------------------------------------------------------
                 |   20)  Save products to products.xml                           |  
                 |   21) Load products from products.xml                          |  
                 |   0)  Exit                                                     |  
@@ -112,6 +116,8 @@ public class Driver{
                 case 11 -> printAverageProductPrice();
                 case 12 -> printCheapestProduct();
                 case 13 -> printProductsAboveAPrice();
+                case 15 -> searchProductByName();
+                case 16 -> sortByProductName();
                 case 20 -> saveProducts();
                 case 21 -> loadProducts();
                 default -> System.out.println("Invalid option entered: " + option);
@@ -270,6 +276,10 @@ public class Driver{
             }
         }
     }
+    private void sortByProductName() {
+        store.sortProductsByNameAscending();
+        System.out.println(store.listProducts());
+    }
     /**
      * save products to products.xml
      */
@@ -319,6 +329,11 @@ public class Driver{
                 System.err.println("\tLanguage not valid.");
             }
         } while (true);
+    }
+
+    private void searchProductByName() {
+        String productName = ScannerInput.readNextLine("Please enter a product name to search by:");
+        System.out.println(store.searchByProductName(productName));
     }
 
 }
