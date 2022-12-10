@@ -210,6 +210,47 @@ public class Store {
         //if the product was not found, return false, indicating that the update was not successful
         return false;
     }
+
+    /**
+     * Search Products By Name and return all products that match the search criteria
+     * @param productName - String to search
+     * @return - String of all matching products
+     */
+    public String searchByProductName(String productName) {
+        String matchingProducts = "";
+        for (Product product: products) {
+           if(product.getProductName().toUpperCase().contains(productName.toUpperCase())){
+               //update matchingProducts String
+               matchingProducts += products.indexOf(product) + ": " + product + "\n";
+           }
+        }
+        if(matchingProducts.equals("")){
+            return "No products match your search!";
+        }
+        else{
+            return matchingProducts;
+        }
+    }
+
+    public void sortProductsByNameAscending() {
+        for(int i = products.size() -1; i>=0; i--){
+            int highestIndex = 0;
+            for(int j = 0; j <= i; j++){
+                if(products.get(j).getProductName().compareTo(products.get(highestIndex).getProductName()) > 0){
+                    highestIndex = j;
+                }
+            }
+            swapProducts(products, i, highestIndex);
+        }
+    }
+    private void swapProducts(ArrayList<Product> products, int i, int j){
+        Product smaller = products.get(i);
+        Product bigger = products.get(j);
+
+        products.set(i, bigger);
+        products.set(j, smaller);
+    }
+
     @SuppressWarnings("unchecked")
     public void load() throws Exception {
         //list of classes that you wish to include in the serialisation, separated by a comma
